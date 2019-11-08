@@ -1,0 +1,7 @@
+# Ignore the Python virtual environment.
+/tensorflow_number_recognition
+
+# Ignore the training and testing dataset.
+/MNIST_data
+
+/.vscode
