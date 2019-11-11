@@ -11,14 +11,14 @@ mnist = input_data.read_data_sets('MNIST_data/', one_hot=True)
 
 # Count the images in each of the subsets of the dataset.
 number_of_train_images = mnist.train.num_examples # 55,000
-number_of_validation_images = mnist.validation.num_examples  # 5000
+number_of_validation_images = mnist.validation.num_examples # 5000
 number_of_test_images = mnist.test.num_examples  # 10,000
 
-print 'Number of images in the train subset:' + number_of_train_images
-print 'Number of images in the validation subset:' + number_of_validation_images
-print 'Number of images in the test subset:' + number_of_test_images
+print('Number of images in the train subset:' + str(number_of_train_images))
+print('Number of images in the validation subset:' + str(number_of_validation_images))
+print('Number of images in the test subset:' + str(number_of_test_images))
 
-### Define the architecture of the neural network (number layers, number of neurons ("units") in each layer, etc). ###
+### Define the architecture of the neural network (number of layers, number of neurons ("units") in each layer, etc). ###
 
 number_of_units_in_input_layer = 784 # Input layer (28x28 pixel image flattened as a vector/array of 784 values representing the greyscale of each pixel as integers between 0 and 255).
 number_of_units_in_hidden1_layer = 512 # 1st hidden layer (hidden layers are the ones between the input and output layer).
@@ -41,7 +41,7 @@ X = tf.placeholder('float', [None, number_of_units_in_input_layer])
 Y = tf.placeholder('float', [None, number_of_units_in_output_layer])
 keep_probability = tf.placeholder(tf.float32)
 
-# The weights and biases are where the network learning happens. They define the strength of the connections between the units/neurons. They get updated during the training process.
+# The weights and biases are where the network's learning happens. They define the strength of the connections between the units/neurons. They get updated during the training process.
 # Initialize the weights as random small decimals. Random so they all change independently, and small so they can go positive or negative.
 weights = {
   'hidden1_layer': tf.Variable(tf.truncated_normal([number_of_units_in_input_layer, number_of_units_in_hidden1_layer], stddev=0.1)),
@@ -65,7 +65,7 @@ layer_1 = tf.add(tf.matmul(X, weights['hidden1_layer']), biases['hidden1_layer']
 layer_2 = tf.add(tf.matmul(layer_1, weights['hidden2_layer']), biases['hidden2_layer'])
 layer_3 = tf.add(tf.matmul(layer_2, weights['hidden3_layer']), biases['hidden3_layer'])
 layer_drop = tf.nn.dropout(layer_3, keep_probability)
-output_layer = tf.matmul(layer_3, weights['output_layer']) + biases['output_layer']
+output_layer = tf.matmul(layer_drop, weights['output_layer']) + biases['output_layer']
 
 # Specify the loss function (cross-entropy) and optimization algorithm to minimize the loss function (Adam optimizer).
 # cross-entropy loss function quantifies the difference between the predictions and the correct answer, with zero meaning a perfect classification.
@@ -121,9 +121,9 @@ for i in range(number_of_training_iterations):
 # Testing means running the testing subset of the dataset through the trained network, and tracking the correct predictions to determine how accurate the network is.
 # Accuracy should be about 92%.
 test_accuracy = session.run(accuracy, feed_dict={X: mnist.test.images, Y: mnist.test.labels, keep_probability: 1.0})
-print("\nAccuracy on test subset:", test_accuracy)
+print("\nAccuracy on test subset: ", test_accuracy)
 
 ### Test the network with manual input ###
 # input_image = np.invert(Image.open('/path/to/test_img.png').convert('L')).ravel()
 # prediction = sess.run(tf.argmax(output_layer, 1), feed_dict={X: [input_image]})
-# print ("Prediction for input image:", np.squeeze(prediction))
+# print('Prediction for input image: ', np.squeeze(prediction))

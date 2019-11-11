@@ -4,6 +4,8 @@ Build and train a Neural Network with Tensorflow to recognize handwritten digits
 
 Adapted from [this tutorial by Ellie Birbeck](https://www.digitalocean.com/community/tutorials/how-to-build-a-neural-network-to-recognize-handwritten-digits-with-tensorflow), updated for later Tensorflow versions and with documentation inlined as comments.
 
+Note that this uses Tensorflow 1.14, not 2.
+
 ## Setup
 
 ### Setting up Python on a Mac
@@ -60,11 +62,11 @@ And install the dependencies:
 pip install -r dependencies.txt
 ```
 
-
 ## Write the Python script
 
 ```bash
 touch main.py
+echo 'MNIST_data' > .gitignore
 ```
 
 See main.py file in this repo.
